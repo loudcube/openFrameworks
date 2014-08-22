@@ -526,7 +526,12 @@ void ofAppGLFWWindow::setWindowShape(int w, int h){
 
 //------------------------------------------------------------
 void ofAppGLFWWindow::hideCursor(){
+	// linux에서 작동안하는 버그수정
+#ifdef TARGET_LINUX
+	glfwSetInputMode(windowP,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+#else
 	glfwSetInputMode(windowP,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
+#endif
 };
 
 //------------------------------------------------------------
