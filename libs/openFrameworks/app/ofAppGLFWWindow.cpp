@@ -535,9 +535,12 @@ void ofAppGLFWWindow::setWindowShape(int w, int h){
 
 //------------------------------------------------------------
 void ofAppGLFWWindow::hideCursor(){
-	//마우스포인터가 안사라지는 버그 수정
-	//glfwSetInputMode(windowP,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
+	// linux에서 작동안하는 버그수정
+#ifdef TARGET_LINUX
 	glfwSetInputMode(windowP,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
+#else
+	glfwSetInputMode(windowP,GLFW_CURSOR,GLFW_CURSOR_HIDDEN);
+#endif
 };
 
 //------------------------------------------------------------
