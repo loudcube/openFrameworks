@@ -9,12 +9,12 @@
 #include "ofAppBaseWindow.h"
 #include "ofFbo.h"
 
-ofMatrixStack::ofMatrixStack(const ofAppBaseWindow & window)
+ofMatrixStack::ofMatrixStack(const ofAppBaseWindow * window)
 :vFlipped(true)
 ,orientation(OF_ORIENTATION_DEFAULT)
 ,handedness(OF_LEFT_HANDED)
 ,currentFbo(NULL)
-,currentWindow(const_cast<ofAppBaseWindow*>(&window))
+,currentWindow(const_cast<ofAppBaseWindow*>(window))
 ,currentMatrixMode(OF_MATRIX_MODELVIEW)
 ,currentMatrix(&modelViewMatrix)
 {
@@ -137,7 +137,7 @@ void ofMatrixStack::viewport(float x, float y, float width, float height, bool v
 	currentViewport.set(x,y,width,height);
 }
 
-ofRectangle ofMatrixStack::getCurrentViewport(){
+ofRectangle ofMatrixStack::getCurrentViewport() const{
 	ofRectangle currentViewport = this->currentViewport;
 	if (isVFlipped()){
 		currentViewport.y = getRenderSurfaceHeight() - (currentViewport.y + currentViewport.height);
@@ -150,7 +150,7 @@ ofRectangle ofMatrixStack::getCurrentViewport(){
 	return currentViewport;
 }
 
-ofRectangle ofMatrixStack::getNativeViewport(){
+ofRectangle ofMatrixStack::getNativeViewport() const{
 	return currentViewport;
 }
 
