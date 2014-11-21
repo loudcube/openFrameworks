@@ -373,6 +373,7 @@ bool ofSerial::setup(string portName, int baud){
 		options.c_cflag |= CS8;
 		tcsetattr(fd,TCSANOW,&options);
 
+
 		bInited = true;
 		ofLogNotice("ofSerial") << "opened " << portName << " sucessfully @ " << baud << " bps";
 
