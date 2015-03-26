@@ -16,7 +16,6 @@ public:
 		allowMultiWindow = Window::allowsMultiWindow();
 		if(Window::doesLoop()){
 		    windowLoop = Window::loop;
-		    
 		}
 		if(Window::needsPolling()){
 		    pollEvents = Window::pollEvents;
@@ -26,15 +25,19 @@ public:
 		}
 		windowsApps[window] = shared_ptr<ofBaseApp>();
 		currentWindow = window;
-		
+		ofAddListener(window->events().keyPressed,this,&ofMainLoop::keyPressed);
 	}
+
 	void run(shared_ptr<ofAppBaseWindow> window, shared_ptr<ofBaseApp> app);
 	void run(shared_ptr<ofBaseApp> app);
 	int loop();
 	void loopOnce();
+	void exit();
 	ofCoreEvents & events();
 	void shouldClose(int status);
 	shared_ptr<ofAppBaseWindow> getCurrentWindow();
+	void setCurrentWindow(shared_ptr<ofAppBaseWindow> window);
+	void setCurrentWindow(ofAppBaseWindow * window);
 	shared_ptr<ofBaseApp> getCurrentApp();
 	void setEscapeQuitsLoop(bool quits);
 

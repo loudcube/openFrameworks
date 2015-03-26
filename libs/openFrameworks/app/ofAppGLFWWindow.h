@@ -3,12 +3,7 @@
 #include "ofConstants.h"
 
 #define GLFW_INCLUDE_NONE
-
-#if (_MSC_VER)
-#include <GLFW/glfw3.h>
-#else
 #include "GLFW/glfw3.h"
-#endif
 
 #include "ofAppBaseWindow.h"
 #include "ofEvents.h"
@@ -130,7 +125,6 @@ public:
 	void setup(const ofGLFWWindowSettings & settings);
 	void update();
 	void draw();
-	void run(ofBaseApp * appPtr);
 	bool getWindowShouldClose();
 	void setWindowShouldClose();
 
@@ -174,6 +168,8 @@ public:
 
     int         getPixelScreenCoordScale();
 
+    void 		makeCurrent();
+
 #if defined(TARGET_LINUX) && !defined(TARGET_RASPBERRY_PI)
 	Display* 	getX11Display();
 	Window  	getX11Window();
@@ -204,9 +200,7 @@ private:
 	ofAppGLFWWindow(ofAppGLFWWindow & w){};
 	ofAppGLFWWindow & operator=(ofAppGLFWWindow & w){return w;};
 
-	// callbacks
-	void			display(void);
-
+	static ofAppGLFWWindow * setCurrent(GLFWwindow* windowP);
 	static void 	mouse_cb(GLFWwindow* windowP_, int button, int state, int mods);
 	static void 	motion_cb(GLFWwindow* windowP_, double x, double y);
 	static void 	keyboard_cb(GLFWwindow* windowP_, int key, int scancode, unsigned int codepoint, int action, int mods);
@@ -215,7 +209,6 @@ private:
 	static void		scroll_cb(GLFWwindow* windowP_, double x, double y);
 	static void 	drop_cb(GLFWwindow* windowP_, int numFiles, const char** dropString);
 	static void		error_cb(int errorCode, const char* errorDescription);
-	static void 	exitApp();
 
 #ifdef TARGET_LINUX
 	void setWindowIcon(const string & path);

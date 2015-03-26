@@ -1,7 +1,6 @@
 #include "ofBufferObject.h"
 #include "ofConstants.h"
 #include "ofAppRunner.h"
-#include "GL/glew.h"
 
 ofBufferObject::Data::Data()
 :id(0)
@@ -110,7 +109,6 @@ void ofBufferObject::setData(GLsizeiptr bytes, const void * data, GLenum usage){
 #endif
 
 	/// --------| invariant: direct state access is not available
-
 	bind(this->data->lastTarget);
 	glBufferData(this->data->lastTarget, bytes, data, usage);
 	unbind(this->data->lastTarget);
